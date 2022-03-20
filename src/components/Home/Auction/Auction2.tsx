@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 10,
   },
-  header: {},
+  header: {flex: 1},
   title: {
     fontWeight: 'bold',
     fontSize: 18,

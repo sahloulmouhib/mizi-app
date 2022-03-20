@@ -26,20 +26,30 @@ const SignupScreen = ({navigation}: Props) => {
         onPress={() => {
           navigation.navigate('SignIn');
         }}>
-        <Ionicons name="chevron-back-outline" size={40} color="black" />
+        <Image
+          resizeMode="cover"
+          style={{
+            transform: [{rotate: '180deg'}],
+
+            marginTop: 20,
+            height: 50,
+            width: 50,
+          }}
+          source={require('../../utils/images/down-arrow.png')}
+        />
       </TouchableOpacity>
       <View style={styles.imageContainer}>
         <Text style={styles.joinText}>
-          Join this auction app and gte ready to bid on some cool auctions!
+          Get ready to bid on some cool auctions!
         </Text>
         <Image
-          resizeMode="center"
+          resizeMode="cover"
           style={{
-            flex: 7,
-            width: 300,
-            height: 300,
+            height: 200,
+            backgroundColor: 'red',
+            flex: 4,
           }}
-          source={require('../../utils/images/signup.png')}
+          source={require('../../utils/images/signup2.png')}
         />
       </View>
 
@@ -109,14 +119,21 @@ const SignupScreen = ({navigation}: Props) => {
         iconName="lock-closed-outline"
       />
       <View style={styles.agreementContainer}>
+        <CheckBox disabled={false} value={true} />
         <Text>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, nulla
           nihil! Nobis modi, accusantium .Nobis modi, accusantium .
         </Text>
-        <CheckBox disabled={false} value={true} />
       </View>
 
       <CustomButton title={'Sign Up'} />
+      <Text
+        onPress={() => {
+          navigation.navigate('SignIn');
+        }}
+        style={styles.registerText}>
+        Already Have an account?
+      </Text>
     </ScrollView>
   );
 };
@@ -125,7 +142,6 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     marginHorizontal: 30,
     backgroundColor: 'white',
   },
@@ -133,16 +149,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#b1b6bf',
     fontWeight: 'bold',
-    marginVertical: 20,
   },
   register: {
-    marginVertical: 20,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   registerText: {
+    textAlign: 'center',
     color: '#4070b4',
     fontWeight: '600',
+    marginBottom: 20,
   },
   newText: {
     color: 'grey',
@@ -154,17 +170,22 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   agreementContainer: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 70,
+    marginHorizontal: 30,
     marginVertical: 10,
   },
   agreement: {},
   imageContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    alignItems: 'center',
   },
-  joinText: {color: 'black', fontWeight: 'bold', flex: 2, fontSize: 16},
+  joinText: {
+    color: 'black',
+    fontWeight: 'bold',
+    flex: 3,
+    fontSize: 20,
+    alignSelf: 'center',
+  },
 });

@@ -21,7 +21,7 @@ const Auction = ({name}: Props) => {
         <View style={styles.dateBid}>
           <View>
             <Text style={styles.lowerDate1}> End Date</Text>
-            <Text style={styles.lowerDate}> 5 days</Text>
+            <Text style={styles.lowerDate}> 5th July</Text>
           </View>
           <View>
             <Text style={styles.lowerBid1}> Current Bid</Text>
@@ -50,8 +50,8 @@ export default Auction;
 
 const styles = StyleSheet.create({
   image: {
-    marginLeft: 5,
-    height: 140,
+    marginRight: 5,
+    height: 180,
     flex: 1.4,
     borderRadius: 15,
   },
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   lowerDate: {
     alignSelf: 'center',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#F3970D',
   },

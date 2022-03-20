@@ -1,4 +1,11 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 
 type Props = {name: string; icon: any; color: string};
@@ -8,22 +15,23 @@ export const Category = ({name, icon, color}: Props) => {
   return (
     <>
       <View style={styles.catContainer}>
-        <View
-          style={
-            (styles.iconBackground,
-            {
-              backgroundColor: color,
-              borderRadius: 10,
-              alignSelf: 'center',
-              justifyContent: 'center',
-              width: 70,
-              height: 60,
-
-              padding: 10,
-            })
-          }>
-          <Image resizeMode="center" style={styles.icon} source={icon} />
-        </View>
+        <TouchableOpacity>
+          <View
+            style={
+              (styles.iconBackground,
+              {
+                backgroundColor: color,
+                borderRadius: 10,
+                alignSelf: 'center',
+                justifyContent: 'center',
+                width: 70,
+                height: 60,
+                padding: 10,
+              })
+            }>
+            <Image resizeMode="center" style={styles.icon} source={icon} />
+          </View>
+        </TouchableOpacity>
 
         <Text style={styles.catName}>{name}</Text>
       </View>
@@ -77,7 +85,10 @@ const CategoryHeader = () => {
   return (
     <View>
       <Text style={styles.header}>Categories</Text>
-      <ScrollView contentContainerStyle={styles.container} horizontal={true}>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.container}
+        horizontal={true}>
         {categories2.map(item => {
           return (
             <Category

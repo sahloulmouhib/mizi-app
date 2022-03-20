@@ -23,13 +23,14 @@ const SigninScreen = ({navigation}: Props) => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Image
+        resizeMode="contain"
         style={{
           width: 300,
-          height: 300,
+          height: 200,
           alignSelf: 'center',
           marginVertical: 10,
         }}
-        source={require('../../utils/images/signin.png')}
+        source={require('../../utils/images/auctionMain.png')}
       />
       <CustomTitle title="Sign In" />
       <CustomInput
@@ -74,7 +75,7 @@ export default SigninScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    margin: 50,
+    margin: 30,
     backgroundColor: 'white',
   },
   loginWithText: {
