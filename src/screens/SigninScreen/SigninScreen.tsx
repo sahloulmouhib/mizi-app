@@ -20,12 +20,14 @@ import {useTranslation} from 'react-i18next';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 
-interface MyFormValues {
+type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+
+interface SigninValidation {
   email: string;
   password: string;
 }
 
-const signInValidationSchema = yup.object().shape({
+const signinValidationSchema = yup.object().shape({
   email: yup
     .string()
     .required('Email adress is required')
@@ -38,11 +40,9 @@ const signInValidationSchema = yup.object().shape({
     .matches(/[a-zA-Z0-9]/, 'Password can only contain lettersand numbers.'),
 });
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
-
 const SigninScreen = ({navigation}: Props) => {
   //const {t, i18n} = useTranslation();
-  const initialValues: MyFormValues = {
+  const initialValues: SigninValidation = {
     email: '',
     password: '',
   };
@@ -64,7 +64,7 @@ const SigninScreen = ({navigation}: Props) => {
         validateOnBlur={true}
         initialValues={initialValues}
         //validateOnMount={true}
-        validationSchema={signInValidationSchema}
+        validationSchema={signinValidationSchema}
         onSubmit={(values, actions) => {
           console.log({values, actions});
         }}>
@@ -80,26 +80,26 @@ const SigninScreen = ({navigation}: Props) => {
           <View>
             {/* email  */}
             <CustomInput
-              withError={true}
+              label="Email Address"
+              placeHolder="Email"
               keyboardType="email-address"
               iconName="send-outline"
               value={values.email}
               setValue={handleChange('email')}
-              placeHolder="Email"
-              label="Email Address"
+              withError={true}
               onBlur={handleBlur('email')}
               errorField={errors.email}
               touchedField={touched.email}
             />
             {console.log(errors)}
             <CustomInput
-              withError={true}
+              label="Password"
+              placeHolder="Password"
               keyboardType="default"
-              iconName="lock-closed-outline"
               value={values.password}
               setValue={handleChange('password')}
-              placeHolder="Password"
-              label="Password"
+              withError={true}
+              iconName="lock-closed-outline"
               onBlur={handleBlur('password')}
               errorField={errors.password}
               touchedField={touched.password}
