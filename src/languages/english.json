@@ -1,0 +1,15 @@
+{
+  "singIn": {
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot Password",
+    "loginWith": "Or login with...",
+    "noAccount": "Don't have an account",
+    "register": "Tegister"
+  },
+  "signUp": {
+    "sign": "Sign Up",
+    "slogan": "Get ready to bid on some cool auctions!",
+    "agreement": "lorem ipsum",
+    "hasAccount": "Already have an account?"
+  }
+}

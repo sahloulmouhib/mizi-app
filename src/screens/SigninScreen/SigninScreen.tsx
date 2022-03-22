@@ -3,6 +3,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -13,13 +14,38 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomTitle from '../../components/CustomTitle/CustomTitle';
 import SignInAlt from '../../components/SignInAlt/SignInAlt';
-import CategoryHeader from '../../components/Home/Category/Category';
+
+import {useTranslation} from 'react-i18next';
+
+import {Formik} from 'formik';
+import * as yup from 'yup';
+
+interface MyFormValues {
+  email: string;
+  password: string;
+}
+
+const signInValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required('Email adress is required')
+    .email('Please enter valid email'),
+
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password is too short - should be 8 chars minimum.')
+    .matches(/[a-zA-Z0-9]/, 'Password can only contain lettersand numbers.'),
+});
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 const SigninScreen = ({navigation}: Props) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  //const {t, i18n} = useTranslation();
+  const initialValues: MyFormValues = {
+    email: '',
+    password: '',
+  };
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Image
@@ -32,28 +58,76 @@ const SigninScreen = ({navigation}: Props) => {
         }}
         source={require('../../utils/images/auctionMain.png')}
       />
-      <CustomTitle title="Sign In" />
-      <CustomInput
-        value={email}
-        setValue={setEmail}
-        placeHolder="Email"
-        label="Email Address"
-      />
-      <CustomInput
-        value={password}
-        setValue={setPassword}
-        placeHolder="Password"
-        label="Password"
-      />
-      <TouchableOpacity>
-        <Text style={styles.forgotPassword}>Forgot password?</Text>
-      </TouchableOpacity>
-      <CustomButton
-        onPress={() => {
-          navigation.navigate('Home');
-        }}
-        title="Sign In"
-      />
+      <CustomTitle title="Sign in" />
+      <Formik
+        validateOnChange={false}
+        validateOnBlur={true}
+        initialValues={initialValues}
+        //validateOnMount={true}
+        validationSchema={signInValidationSchema}
+        onSubmit={(values, actions) => {
+          console.log({values, actions});
+        }}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isValid,
+          values,
+          touched,
+          errors,
+        }) => (
+          <View>
+            {/* email  */}
+            <CustomInput
+              withError={true}
+              keyboardType="email-address"
+              iconName="send-outline"
+              value={values.email}
+              setValue={handleChange('email')}
+              placeHolder="Email"
+              label="Email Address"
+              onBlur={handleBlur('email')}
+              errorField={errors.email}
+              touchedField={touched.email}
+            />
+            {console.log(errors)}
+            <CustomInput
+              withError={true}
+              keyboardType="default"
+              iconName="lock-closed-outline"
+              value={values.password}
+              setValue={handleChange('password')}
+              placeHolder="Password"
+              label="Password"
+              onBlur={handleBlur('password')}
+              errorField={errors.password}
+              touchedField={touched.password}
+            />
+            <CustomButton
+              isValid={!isValid}
+              onPress={() => {}}
+              // onPress={() => {
+              //   navigation.navigate('Home');
+              // }}
+              title="Sign In"
+            />
+            <TouchableOpacity>
+              <Text style={styles.forgotPassword}>Forgot password?</Text>
+            </TouchableOpacity>
+            {/* <TextInput
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}></TextInput>
+            {errors.email && touched.email && (
+              <Text style={styles.errors}>{errors.email}*</Text>
+            )}
+
+            <Icon name={!errors.email ? 'check' : 'close'} /> */}
+          </View>
+        )}
+      </Formik>
+
       <Text style={styles.loginWithText}>Or login with...</Text>
       <SignInAlt />
       <View style={styles.register}>
@@ -101,5 +175,10 @@ const styles = StyleSheet.create({
     color: '#4070b4',
     fontWeight: '500',
     alignSelf: 'flex-end',
+  },
+  errors: {
+    color: 'red',
+
+    fontSize: 14,
   },
 });

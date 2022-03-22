@@ -46,7 +46,7 @@ const SignupScreen = ({navigation}: Props) => {
           resizeMode="cover"
           style={{
             height: 200,
-            backgroundColor: 'red',
+
             flex: 4,
           }}
           source={require('../../utils/images/signup2.png')}

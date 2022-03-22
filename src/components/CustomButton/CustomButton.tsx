@@ -5,12 +5,14 @@ import {mainColor} from '../../constants/colors';
 type Props = {
   title: string;
   onPress?: any;
+  isValid?: boolean;
 };
 
-const CustomButton: FC<Props> = ({title, onPress}) => {
+const CustomButton: FC<Props> = ({title, onPress, isValid}) => {
   return (
     <>
       <TouchableOpacity
+        disabled={isValid}
         onPress={() => {
           onPress();
         }}
